@@ -11,8 +11,23 @@ import '@fontsource/roboto/700.css';
 
 import 'normalize.css';
 
+import { ThemeProvider, createTheme } from '@mui/material';
+
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: '#5039d4'
+		},
+		secondary: {
+			main: '#d4d4d4'
+		}
+	}
+});
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<App />
+		<ThemeProvider theme={theme}>
+			<App />
+		</ThemeProvider>
 	</React.StrictMode>
 );
