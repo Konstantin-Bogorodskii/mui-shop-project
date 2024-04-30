@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { BasketList, GoodsList } from '@components/index';
+import { BasketList, GoodsList, Header } from '@components/index';
 import { Search } from '@shared/index';
 
 import { goodsData } from '@assets/data/goods';
@@ -64,22 +64,25 @@ const App = () => {
 	};
 
 	return (
-		<div className="App">
-			<div className="container">
-				<Search
-					value={search}
-					onChange={handleChange}
-				/>
-				<GoodsList
-					goods={goods}
-					addToBasket={addToBasket}
-				/>
-				<BasketList
-					basket={basket}
-					removeFromBasket={removeFromBasket}
-				/>
+		<>
+			<Header />
+			<div className="App">
+				<div className="container">
+					<Search
+						value={search}
+						onChange={handleChange}
+					/>
+					<GoodsList
+						goods={goods}
+						addToBasket={addToBasket}
+					/>
+					<BasketList
+						basket={basket}
+						removeFromBasket={removeFromBasket}
+					/>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
