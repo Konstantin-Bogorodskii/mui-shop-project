@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import { BasketList, GoodsList, Header } from '@components/index';
+import { Basket, GoodsList, Header, Snack } from '@components/index';
 import { Search } from '@shared/index';
+import { Container } from '@mui/material';
 
 import { goodsData } from '@assets/data/goods';
 import { IGoodsItem, IBasketItem } from '@/types/types';
@@ -10,17 +11,19 @@ const App = () => {
 	const [basket, setBasket] = useState<IBasketItem[]>([]);
 	const [search, setSearch] = useState<string>('');
 	const [goods, setGoods] = useState<IGoodsItem[]>(goodsData);
+	const [isBasketOpen, setBasketOpen] = useState(false);
+	const [isSnackOpen, setSnackOpen] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.value) {
-			setGoods(goods);
+			setGoods(goodsData);
 			setSearch('');
 			return;
 		}
 
 		setSearch(e.target.value);
 		setGoods(
-			goods.filter(good => {
+			goodsData.filter(good => {
 				return good.name.toLowerCase().includes(e.target.value.toLowerCase());
 			})
 		);
@@ -57,6 +60,8 @@ const App = () => {
 				}
 			]);
 		}
+
+		setSnackOpen(true);
 	};
 
 	const removeFromBasket = (goodsItemId: string) => {
@@ -65,23 +70,33 @@ const App = () => {
 
 	return (
 		<>
-			<Header />
-			<div className="App">
-				<div className="container">
-					<Search
-						value={search}
-						onChange={handleChange}
-					/>
-					<GoodsList
-						goods={goods}
-						addToBasket={addToBasket}
-					/>
-					<BasketList
-						basket={basket}
-						removeFromBasket={removeFromBasket}
-					/>
-				</div>
-			</div>
+			<Header
+				setBasketOpen={() => setBasketOpen(true)}
+				basketLength={basket.length}
+			/>
+			<Container
+				sx={{
+					mt: '1rem'
+				}}>
+				<Search
+					value={search}
+					onChange={handleChange}
+				/>
+				<GoodsList
+					goods={goods}
+					addToBasket={addToBasket}
+				/>
+			</Container>
+			<Basket
+				basket={basket}
+				removeFromBasket={removeFromBasket}
+				isBasketOpen={isBasketOpen}
+				closeBasket={() => setBasketOpen(false)}
+			/>
+			<Snack
+				isSnackOpen={isSnackOpen}
+				setSnackOpen={() => setSnackOpen(false)}
+			/>
 		</>
 	);
 };
