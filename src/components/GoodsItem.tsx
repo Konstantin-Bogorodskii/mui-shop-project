@@ -1,23 +1,39 @@
+import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+
 import { IGoodsItem } from '@/types/types';
 
 interface IGoodsItemProps extends IGoodsItem {
 	addToBasket: (goodsItem: IGoodsItem) => void;
 }
 
-const GoodsItem: React.FC<IGoodsItemProps> = ({ id, name, price, addToBasket }) => {
+const GoodsItem: React.FC<IGoodsItemProps> = ({ id, name, price, poster, addToBasket }) => {
 	return (
-		<div className="col-12 col-md-6 px-md-2">
-			<div className="card">
-				<img
-					src={`https://via.placeholder.com/300x150.png?text=${name.slice(0, 12)}`}
-					className="card-img-top"
+		<Grid
+			item
+			xs={12}
+			md={4}>
+			<Card
+				sx={{
+					height: '100%'
+				}}>
+				<CardMedia
+					image={poster}
+					component="img"
 					alt={name}
+					title={name}
+					sx={{ height: 140 }}
 				/>
-				<div className="card-body">
-					<h5 className="card-title">{name}</h5>
-					<p className="card-text">Цена: {price} руб.</p>
-					<button
-						className="btn btn-primary"
+				<CardContent>
+					<Typography
+						variant="h6"
+						component="h3">
+						{name}
+					</Typography>
+					<Typography variant="body1">Цена: {price} руб.</Typography>
+				</CardContent>
+				<CardActions>
+					<Button
+						variant="text"
 						onClick={() =>
 							addToBasket({
 								id,
@@ -26,10 +42,10 @@ const GoodsItem: React.FC<IGoodsItemProps> = ({ id, name, price, addToBasket }) 
 							})
 						}>
 						Купить
-					</button>
-				</div>
-			</div>
-		</div>
+					</Button>
+				</CardActions>
+			</Card>
+		</Grid>
 	);
 };
 

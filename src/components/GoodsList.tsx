@@ -1,4 +1,6 @@
-import GoodsItem from './GoodsItem';
+import { GoodsItem } from '@components/index';
+import { Grid } from '@mui/material';
+
 import { IGoodsItem } from '@/types/types';
 
 interface IGoodsListProps {
@@ -8,17 +10,17 @@ interface IGoodsListProps {
 
 const GoodsList: React.FC<IGoodsListProps> = ({ goods, addToBasket }) => {
 	return (
-		<div className="goods-list col-md-8">
-			<div className="row">
-				{goods.map(item => (
-					<GoodsItem
-						key={item.id}
-						addToBasket={addToBasket}
-						{...item}
-					/>
-				))}
-			</div>
-		</div>
+		<Grid
+			container
+			spacing={2}>
+			{goods.map(item => (
+				<GoodsItem
+					key={item.id}
+					addToBasket={addToBasket}
+					{...item}
+				/>
+			))}
+		</Grid>
 	);
 };
 
