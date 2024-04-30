@@ -1,7 +1,12 @@
 import { AppBar, Badge, IconButton, Toolbar, Typography } from '@mui/material';
 import { ShoppingBasket } from '@mui/icons-material';
 
-function Header() {
+interface IHeaderProps {
+	setBasketOpen: () => void;
+	basketLength: number;
+}
+
+const Header: React.FC<IHeaderProps> = ({ setBasketOpen, basketLength }) => {
 	return (
 		<AppBar position="static">
 			<Toolbar>
@@ -11,14 +16,18 @@ function Header() {
 					sx={{ flexGrow: 1 }}>
 					MUI Shop
 				</Typography>
-				<IconButton color="inherit">
-					<Badge color="secondary">
+				<IconButton
+					color="inherit"
+					onClick={setBasketOpen}>
+					<Badge
+						color="secondary"
+						badgeContent={basketLength}>
 						<ShoppingBasket />
 					</Badge>
 				</IconButton>
 			</Toolbar>
 		</AppBar>
 	);
-}
+};
 
 export default Header;

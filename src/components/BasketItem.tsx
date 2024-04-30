@@ -1,3 +1,6 @@
+import { IconButton, ListItem, Typography } from '@mui/material';
+import { Close } from '@mui/icons-material';
+
 import { IBasketItem } from '@/types/types';
 
 interface IBasketItemProps extends IBasketItem {
@@ -12,14 +15,14 @@ const BasketItem: React.FC<IBasketItemProps> = ({
 	removeFromBasket
 }) => {
 	return (
-		<li className="list-group-item">
-			{name} {price}руб x{quantity}
-			<button
-				className="btn btn-primary"
-				onClick={() => removeFromBasket(id)}>
-				Удалить из корзины
-			</button>
-		</li>
+		<ListItem>
+			<Typography variant="body1">
+				{name} {price}руб x{quantity}
+			</Typography>
+			<IconButton onClick={() => removeFromBasket(id)}>
+				<Close />
+			</IconButton>
+		</ListItem>
 	);
 };
 
