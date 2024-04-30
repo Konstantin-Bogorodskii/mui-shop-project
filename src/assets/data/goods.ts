@@ -1,4 +1,6 @@
-export const goods = [
+import { IGoodsItem } from '@/types/types';
+
+export const goodsData: IGoodsItem[] = [
 	{
 		id: 'js01',
 		category: 'books',
